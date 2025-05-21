@@ -1,0 +1,19 @@
+{
+  "name": "linebot-template",
+  "version": "1.0.0",
+  "description": "LINE公式アカウント × ChatGPT テンプレートBOT",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["LINE", "ChatGPT", "OpenAI", "bot", "template"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@line/bot-sdk": "^7.5.1",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "openai": "^4.20.0"
+  }
+}
