@@ -63,7 +63,7 @@ ${menuText}
   try {
     // ChatGPT APIにリクエスト（gpt-4使用）
     const chatCompletion = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: 'gpt-4o',
       messages
     });
 
