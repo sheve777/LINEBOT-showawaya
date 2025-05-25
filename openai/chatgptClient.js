@@ -63,7 +63,7 @@ ${menuText}
   try {
     // ChatGPT APIにリクエスト（gpt-4使用）
     const chatCompletion = await openai.chat.completions.create({
-      model: 'gpt-4.1-nano',
+      model: 'gpt-4.1-mini',
       messages
     });
 
