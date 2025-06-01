@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご予約結果 - 笑わ家</title>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+            background-color: #f5f5dc;
+            color: #5a3e36;
+        }
+        h1 {
+            color: #800000;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #d3b8ae;
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+        /* ▼▼▼ reservation_form.html からコピーしてきたスタイル ▼▼▼ */
+        .result-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            text-align: center;
+        }
+        .result-message.success {
+            background-color: #e3f0e3;
+            color: #38761d;
+            border-color: #b7d0b7;
+        }
+        .result-message.error {
+            background-color: #f8e0e0;
+            color: #9a2e39;
+            border-color: #e6bdbd;
+        }
+        /* ▲▲▲ ここまでコピー ▲▲▲ */
+
+        .nav-link { /* 戻るリンク用のスタイル */
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .nav-link:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <h1>ご予約結果</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="result-message {{ category }}"> <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="result-message error">
+                <p>メッセージはありません。</p> </div>
+        {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('index') }}" class="nav-link">予約フォームに戻る</a>
+
+</body>
+</html>

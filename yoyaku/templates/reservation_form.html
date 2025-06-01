@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笑わ家 予約フォーム</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+            background-color: #f5f5dc; /* 背景色: ベージュ */
+            color: #5a3e36;           /* 基本文字色: 焦茶色 */
+        }
+        h1 {
+            color: #800000; /* 見出しの色: 海老茶色 */
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #d3b8ae; /* 下線 */
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #6b4a3f; /* ラベルの文字色 */
+        }
+
+        input[type="date"],
+        input[type="text"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #c8ada0; /* ボーダー色 */
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #fffaf0; /* 入力欄の背景 */
+            color: #5a3e36; /* 入力文字の色 */
+        }
+
+        input[type="date"]:focus,
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            border-color: #800000; 
+            box-shadow: 0 0 0 0.2rem rgba(128, 0, 0, 0.25); 
+            outline: none; 
+        }
+        
+        input[type="submit"] {
+            margin-top: 25px;
+            padding: 12px 25px;
+            background-color: #800000; /* ボタンの背景色 */
+            color: #fffaf0;             /* ボタンの文字色 */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        input[type="submit"]:hover {
+            background-color: #660000; /* ボタンホバー時の色 */
+        }
+        input[type="submit"]:active {
+            background-color: #500000; /* ボタンアクティブ時の色 */
+            transform: translateY(1px);
+        }
+            
+        .result-message { /* このスタイルは result_page.html で使われます */
+            margin-top: 20px;
+            padding: 15px;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            text-align: center;
+        }
+        .result-message.success { /* このスタイルは result_page.html で使われます */
+            background-color: #e3f0e3;
+            color: #38761d;
+            border-color: #b7d0b7;
+        }
+        .result-message.error { /* このスタイルは result_page.html で使われます */
+            background-color: #f8e0e0;
+            color: #9a2e39;
+            border-color: #e6bdbd;
+        }
+
+        /* ▼▼▼ Flatpickrの日付セルの色付けカスタムスタイルは削除しました ▼▼▼ */
+        /* .flatpickr-day.my-saturday-blue { ... } */
+        /* .flatpickr-day.my-red-holiday { ... } */
+        /* ▲▲▲ ここまで削除 ▲▲▲ */
+
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #d3b8ae;
+            font-size: 0.9em;
+            color: #6b4a3f;
+            text-align: center;
+        }
+        footer p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>笑わ家 ご予約</h1>
+
+    <form action="/submit_reservation" method="POST">
+        <label for="reservation_date">ご予約日:</label>
+        <input type="date" id="reservation_date" name="reservation_date" required>
+
+        <label for="reservation_time_select">ご希望時間:</label>
+        <select id="reservation_time_select" name="reservation_time" required>
+            <option value="17:30">17:30</option>
+            <option value="18:00">18:00</option>
+            <option value="18:30">18:30</option>
+            <option value="19:00">19:00</option>
+            <option value="19:30">19:30</option>
+            <option value="20:00">20:00</option>
+            <option value="20:30">20:30</option>
+            <option value="21:00">21:00</option>
+            <option value="21:30">21:30</option>
+            <option value="22:00">22:00 (最終)</option>
+        </select>
+
+        <label for="num_guests_select">人数:</label>
+        <select id="num_guests_select" name="num_guests" required>
+            <option value="1">1名様</option>
+            <option value="2">2名様</option>
+            <option value="3">3名様</option>
+            <option value="4">4名様</option>
+            <option value="5">5名様</option>
+            <option value="6">6名様</option>
+            <option value="7">7名様</option>
+            <option value="8">8名様</option>
+        </select>
+
+        <label for="seat_type">ご希望の席タイプ:</label>
+        <select id="seat_type" name="seat_type">
+            <option value="カウンター">カウンター</option>
+            <option value="テーブル">テーブル</option>
+        </select>
+
+        <label for="reservist_name">お名前 (必須):</label>
+        <input type="text" id="reservist_name" name="reservist_name" required>
+
+        <label for="phone_number">お電話番号 (4名様以上の場合は必須):</label>
+        <input type="tel" id="phone_number" name="phone_number" placeholder="例: 09012345678">
+        
+        <input type="submit" value="予約する">
+    </form>
+    
+    <footer>
+        <hr style="margin-top: 30px; margin-bottom: 20px;">
+        <p><strong>【店舗情報】</strong></p>
+        <p><strong>営業時間:</strong> {{ shop_hours }}</p>
+        <p><strong>定休日:</strong> {{ shop_holidays }}</p>
+        {% if shop_phone %} 
+            <p><strong>お電話:</strong> {{ shop_phone }}</p>
+        {% endif %}
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script> 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pythonから渡されたデータをJavaScriptの変数に変換
+            const disabledWeekdays = JSON.parse('{{ disabled_weekdays_json | default("[]") | safe }}');
+            const nenmatsuNenshiPeriods = JSON.parse('{{ nenmatsu_nenshi_json | default("[]") | safe }}');
+            const specificHolidays = JSON.parse('{{ specific_holidays_json | default("[]") | safe }}');
+            const minDateValue = "{{ min_date_for_calendar }}"; // "YYYY-MM-DD" 形式の明日日付
+
+            let disableRules = []; // Flatpickrのdisableオプションに設定するルールの配列
+
+            // 1. 毎週の定休日ルール
+            if (disabledWeekdays.length > 0) {
+                disableRules.push(function(date) {
+                    if (!(date instanceof Date) || isNaN(date.getTime())) return false;
+                    return disabledWeekdays.includes(date.getDay()); // 日曜=0, 月曜=1...
+                });
+            }
+
+            // 2. 年末年始などの期間ルール
+            if (nenmatsuNenshiPeriods.length > 0) {
+                nenmatsuNenshiPeriods.forEach(function(period) {
+                    disableRules.push(period); // {from: "YYYY-MM-DD", to: "YYYY-MM-DD"}
+                });
+            }
+
+            // 3. 特定の祝日（日付文字列）ルール
+            if (specificHolidays.length > 0) {
+                specificHolidays.forEach(function(holidayDateStr) {
+                    disableRules.push(holidayDateStr); // "YYYY-MM-DD"
+                });
+            }
+            
+            // console.log("Flatpickrに渡す最終的な disableRules:", disableRules); // デバッグ時は有効に
+
+            flatpickr("#reservation_date", {
+                locale: "ja",               // 表示を日本語化
+                minDate: minDateValue,      // 明日以降を選択可能に
+                disable: disableRules      // 全ての無効化ルールを適用
+                // onDayCreate フックは削除しました
+            });
+        });
+    </script>
+
+</body>
+</html>
